@@ -1,0 +1,79 @@
+<%- include('layout/header')%>
+
+<div class="content-wrapper mt-20">
+    <div class="container px-20 h-50"></div>
+    <div class="container">
+        <div class="content">
+            <h2 class="content-title center">Find the length of any YouTube playlist : </h2>
+            <form action="/" method="post">
+                <div class="input-group">
+                    <label for="search_string"></label>
+                <input
+                        type="text"
+                        autofocus="autofocus"
+                        class="form-control form-control-lg"
+                        placeholder="youtube.com/playlist?list=ID"
+                        name="search_string"
+                    />
+                        <button class="btn btn-primary ml-5 text-dark-dm shadow-none btn-lg" type="submit" name="submit">Analyze</button>
+                </div>
+                <div id="emailHelp" class="form-text content mx-0 my-5">
+                    You can enter a playlist link, playlist ID or even a video link from the playlist !
+                    <br />
+                    This only works with playlists with upto 500 videos. Need more than that?
+                    <a href="https://colab.research.google.com/drive/1D0nbJVcFMHmQyNFVpoL65LOUiejA-bAc"
+                        >Check here.</a
+                    >
+                </div>
+                <% if (error == 1) { %>
+                    <div class="alert alert-dismissible fade show alert-danger" role="alert" >
+                        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>Incorrect playlist url</strong>
+                    </div>
+                <% } %>
+                <% if (duration && error == 0) { %>
+                    <table class="table table-striped">
+                        <tbody>
+                          <tr>
+                            <th scope="row">No of videos</th>
+                            <td></td>
+                            <td><%=  duration.number_items %></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Average length of video</th>
+                            <td></td>
+                            <td><%= duration.average_length %></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Total length of playlist</th>
+                            <td></td>
+                            <td><%= duration.total_length%></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">At 1.25x</th>
+                            <td></td>
+                            <td><%= duration.total_length_quarter%></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">At 1.50x</th>
+                            <td></td>
+                            <td><%= duration.total_length_half%></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">At 1.75x</th>
+                            <td></td>
+                            <td><%= duration.total_length_three_quarters%></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">At 2.00x</th>
+                            <td></td>
+                            <td><%= duration.total_length_double%></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                <% } %>
+            </form>
+        </div>
+    </div>
+
+<%- include('layout/footer') %>
